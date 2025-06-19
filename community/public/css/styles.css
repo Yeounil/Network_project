@@ -1,0 +1,517 @@
+:root {
+  --color-bg:            #f5f7fa;
+  --color-surface:       #ffffff;
+  --color-primary:       #3B82F6;
+  --color-primary-light: #60A5FA;
+  --color-accent:        #93C5FD;
+  --color-surface-light: #BFDBFE;
+  --color-bg-accent:     #EEF2FF;
+  --color-text:          #333333;
+  --color-text-light:    #777777;
+  --color-border:        #e1e4e8;
+
+  --font-family:         'Segoe UI', Roboto, 'Noto Sans KR', sans-serif;
+  --font-size-base:      16px;
+  --font-size-lg:        18px;
+  --font-size-sm:        14px;
+  --line-height:         1.5;
+
+  --space-sm:            12px;
+  --space-md:            16px;
+  --space-lg:            24px;
+
+  --radius:              4px;
+  --shadow-sm:           0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md:           0 4px 6px rgba(0,0,0,0.1);
+}
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height);
+  background: var(--color-bg);
+  color: var(--color-text);
+  height: 100vh;
+}
+
+/* 로그인 화면 */
+#login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+#login-box {
+  background: var(--color-surface);
+  padding: var(--space-lg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  width: 320px;
+}
+#login-box input {
+  width: 100%;
+  padding: var(--space-sm);
+  margin: var(--space-sm) 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+#login-box button {
+  width: 100%;
+  padding: var(--space-sm);
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+#login-error { color: red; margin-top: var(--space-sm); }
+
+/* 로그인/회원가입 토글 링크 */
+#auth-toggle {
+  margin-top: var(--space-md);
+  text-align: center;
+  font-size: var(--font-size-sm);
+}
+#auth-toggle span {
+  color: var(--color-primary);
+  cursor: pointer;
+}
+#signup-form.hidden,
+#to-login.hidden {
+  display: none;
+}
+#login-form.hidden,
+#to-signup.hidden {
+  display: none;
+}
+
+/* 앱 레이아웃 */
+#app {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 240px 1fr;
+  grid-template-areas:
+    "header header"
+    "sidebar main";
+  height: 100%;
+}
+header {
+  grid-area: header;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-md) var(--space-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+  border-bottom: 1px solid var(--color-border);
+  position: relative;
+}
+.logo { font-size: 1.5rem; font-weight: bold; margin: 0; }
+
+.user-info {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-lg);
+  display: flex;
+  align-items: center;
+}
+
+.user-menu-container {
+  position: relative;
+  display: inline-block;
+}
+
+.user-btn {
+  border: none;
+  color: #fff;
+  border-radius: 4px;
+  padding: var(--space-sm);
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  right: 0; top: 100%;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+
+.dropdown-menu.hidden {
+  display: none;
+}
+.dropdown-menu ul {
+  list-style: none;
+  margin: 0; padding: var(--space-sm) 0;
+}
+.dropdown-menu li {
+  padding: var(--space-sm) var(--space-md);
+  cursor: pointer;
+}
+.dropdown-menu li:hover {
+  background: var(--color-bg-accent);
+}
+
+
+.user-info img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-left: var(--space-sm);
+}
+
+.sidebar {
+  grid-area: sidebar;
+  background: var(--color-primary);
+  color: #fff;
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+}
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+}
+.sidebar-header button {
+  background: #fff;
+  color: var(--color-primary);
+  border: none;
+  border-radius: var(--radius);
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  line-height: 0;
+}
+.channel-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 1;
+  overflow-y: auto;
+}
+.channel-list li {
+  padding: var(--space-sm) var(--space-sm);
+  cursor: pointer;
+  border-radius: var(--radius);
+}
+.channel-list li:hover {
+  background: var(--color-primary-light);
+}
+
+.main {
+  grid-area: main;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.notifications {
+  padding: var(--space-sm) var(--space-md);
+  color: var(--color-primary);
+}
+
+#chat-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+#chat {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-md);
+  background: var(--color-bg-accent);
+}
+#chat p { margin: 4px 0; }
+
+.input-area {
+  display: flex;
+  align-items: center;
+  padding: var(--space-sm) var(--space-md);
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+.input-area input {
+  flex: 1;
+  padding: var(--space-sm);
+  font-size: var(--font-size-base);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+.input-area button {
+  margin-left: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--font-size-base);
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+}
+.input-area button:hover {
+  box-shadow: var(--shadow-md);
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal-content {
+  background: var(--color-surface);
+  padding: var(--space-lg);
+  border-radius: var(--radius);
+  width: 400px;
+  max-width: 90%;
+}
+.modal-content h3 { margin-top: 0; }
+.modal-content button { margin-top: var(--space-md); }
+.modal.hidden{
+  display: none;
+}
+
+/* 채널 리스트의 <li>를 flex 컨테이너로 */
+.channel-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-sm) var(--space-sm);
+  cursor: pointer;
+}
+
+/* 초대 버튼 스타일 */
+.channel-list li button {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  color: var(--color-text-light);
+}
+.channel-list li button:hover {
+  color: var(--color-primary);
+}
+
+/* ──────────────────────────────────────────────────────
+   Modal Overlay (전체 배경)
+────────────────────────────────────────────────────── */
+#modal {
+  display: none;              /* 기본 숨김 */
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* 반투명 검정 */
+  justify-content: center;    /* flex 정렬 (bindChannelModal 에서 flex 로 열림) */
+  align-items: center;
+  z-index: 1000;
+}
+
+/* ──────────────────────────────────────────────────────
+   Modal Content (내부 박스)
+────────────────────────────────────────────────────── */
+#modal .modal-content {
+  background: #fff;
+  border-radius: 8px;
+  padding: 24px;
+  width: 90%;
+  max-width: 420px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  position: relative;
+}
+
+/* ──────────────────────────────────────────────────────
+   Step Containers
+────────────────────────────────────────────────────── */
+.modal-step {
+  display: none;              /* showModalStep 으로 토글됩니다 */
+}
+.modal-step.active {
+  display: block;
+}
+
+/* ──────────────────────────────────────────────────────
+   Buttons (일반 & 채널 + 버튼 등)
+────────────────────────────────────────────────────── */
+button {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+#open-channel-modal, #add-channel-btn {
+  background: var(--color-primary);
+  color: #fff;
+}
+#open-channel-modal:hover,
+#add-channel-btn:hover {
+  background: var(--color-primary-light);
+}
+
+/* ──────────────────────────────────────────────────────
+   Explore List (채널 탐색 목록)
+────────────────────────────────────────────────────── */
+#explore-list {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  background: var(--color-surface);
+}
+
+#explore-list li {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--color-border);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#explore-list li:last-child {
+  border-bottom: none;
+}
+
+#explore-list li:hover,
+#explore-list li:focus {
+  background: var(--color-bg-accent);
+  outline: none;
+}
+
+/* ──────────────────────────────────────────────────────
+   Close Button 제거 & 배경 클릭으로 닫기
+────────────────────────────────────────────────────── */
+
+/* ──────────────────────────────────────────────────────
+   채널 항목 (사이드바) 스타일
+────────────────────────────────────────────────────── */
+.channel-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.channel-item:hover {
+  background: var(--color-surface-light);
+}
+
+/* 링크 복사 버튼 */
+.channel-item button {
+  background: none;
+  font-size: 1.2em;
+}
+
+/* 1) 사용자 메뉴 버튼 & 드롭다운 */
+.user-menu-container {
+  position: relative;
+  display: inline-block;
+}
+.user-btn {
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: var(--space-sm);
+  cursor: pointer;
+}
+.dropdown-menu {
+  position: absolute;
+  right: 0; top: 100%;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  z-index: 1000;
+  min-width: 120px;
+}
+.dropdown-menu.hidden {
+  display: none;
+}
+.dropdown-menu ul {
+  list-style: none;
+  margin: 0; padding: var(--space-sm) 0;
+}
+.dropdown-menu li {
+  white-space: nowrap;
+  padding: var(--space-sm) var(--space-md);
+  cursor: pointer;
+}
+.dropdown-menu li:hover {
+  background: var(--color-bg-accent);
+}
+
+.hidden {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+/* ——— 계정 모달: form layout ——— */
+#account-modal .modal-content {
+  width: 480px;        /* 필요하면 더 늘려도 좋습니다 */
+  max-width: 95%;
+}
+
+/* form 내부를 세로 스택으로 */
+#account-modal form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 각 레이블+인풋 그룹 */
+#account-modal form label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: var(--space-md);
+  font-weight: 500;
+}
+
+/* 인풋 전체 너비, 박스 사이징 */
+#account-modal form input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--space-sm);
+  margin-top: 4px;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+}
+
+/* 저장 버튼 풀 너비 */
+#account-modal form button {
+  margin-top: var(--space-md);
+  padding: var(--space-sm);
+  width: 100%;
+  border: none;
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* 모달 헤더 간격 조정 */
+#account-modal .modal-content h2 {
+  margin-bottom: var(--space-lg);
+  font-size: var(--font-size-lg);
+}
+
+
