@@ -1,0 +1,85 @@
+ㅁ<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Chat Community</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- 로그인 화면 -->
+  <div id="login-container">
+    <div id="login-box">
+      <h3>로그인</h3>
+      <input type="text" id="username" placeholder="아이디" autocomplete="off">
+      <input type="password" id="password" placeholder="비밀번호">
+      <button id="login-btn">로그인</button>
+      <div id="login-error"></div>
+    </div>
+  </div>
+
+  <!-- 앱 레이아웃 -->
+  <div id="app" style="display:none;">
+    <header>
+      <div class="logo">Chat_Community</div>
+      <div class="user-info">
+        <span id="user-name">Guest</span>
+        <img src="https://via.placeholder.com/32" alt="avatar">
+      </div>
+    </header>
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <span>Channels</span>
+        <button id="add-channel-btn" title="새 채널 추가">+</button>
+      </div>
+      <ul id="channel-list" class="channel-list">
+        <li data-room="1">General</li>
+      </ul>
+    </div>
+    <div class="main">
+      <div id="notifications" class="notifications"></div>
+      <div id="chat-container" class="chat-container">
+        <div id="chat" class="chat"></div>
+        <div class="input-area">
+          <input type="text" id="msg" placeholder="메시지를 입력하세요">
+          <button id="send">전송</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 채널 모달 -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <div id="modal-step-select">
+        <h3>채널</h3>
+        <button id="explore-channel-btn">채널 탐색</button>
+        <button id="modal-create-btn">채널 생성</button>
+      </div>
+      <div id="modal-step-create" style="display:none;">
+      	<div id="modal-step-explore" style="display:none;">
+  		<h3>채널 탐색</h3>
+  		<ul id="explore-list" class="channel-list"></ul>
+  		<button id="back-select-from-explore-btn">뒤로</button>
+	</div>
+	<button id="modal-close-btn" class="modal-close">×</button>
+        <h3>채널 생성</h3>
+        <input type="text" id="create-channel-name" placeholder="채널 이름 (영문/숫자/_/-)" maxlength="20">
+        <div>
+          <label><input type="radio" name="channel-type" value="public" checked> 공개</label>
+          <label><input type="radio" name="channel-type" value="private"> 비공개</label>
+        </div>
+        <input type="number" id="max-members" placeholder="2~100" min="2" max="100">
+        <div id="channel-name-error" class="error"></div>
+        <div id="max-members-error" class="error"></div>
+        <button id="submit-create-btn">생성</button>
+        <button id="back-select-btn">뒤로</button>
+        <div id="invite-link" class="invite-link"></div>
+      </div>
+      <button id="modal-close-btn" class="modal-close">×</button>
+    </div>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
